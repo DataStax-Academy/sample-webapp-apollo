@@ -1,0 +1,169 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="header :: head"></head>
+<body>
+  
+<div class="navbar navbar-fixed-top" th:include="navbar :: navbar"></div>
+
+ <div class="subnavbar" th:include="navbar:: subnavbar-cassandra"></div>
+
+<div id="wrapper" class="container" >
+ <div class="row">
+  <div class="span9"> 
+   <div id="content" class="clearfix" >
+    <div class="main-inner" style="margin-top:60px">
+     <div class="container">
+     
+      <div class="row">
+        <div class="span2">
+        
+          <!--  General Informations -->
+          <div class="widget widget-nopad">
+            <div class="widget-header">
+              <i class="icon-filter"></i>
+              <h3>Filter</h3>
+            </div>
+           
+            <div class="widget-content" style="padding:10px">
+          		
+          		<span style="font-weight:bold;color:#687684"> <i class="icon-columns"></i> Pick a keyspace</span>
+          		<a th:each="keyspace : ${cbean.userKeyspaces}" 
+          		   th:href="@{'/cassandra?keyspace=' + ${keyspace}}"
+          		   type="submit" >
+          		  	<span th:if="${cbean.currentKeySpace ne keyspace}" 
+          		  	      th:text="${keyspace}" 
+          		  		  style="color:black;width:120px;margin-bottom:10px"  
+          		  		  class="btn" /></span>
+          		    <span th:if="${cbean.currentKeySpace eq keyspace}"
+          		          th:text="${keyspace}" 
+          		  		  style="color:white;width:120px;margin-bottom:10px"  
+          		  		  class="btn btn-warning" >
+          		    </span>
+	  			</a>
+	  			<!-- 
+          		<a th:each="keyspace : ${cbean.adminKeyspaces}" 
+          		   th:href="@{'/cassandra?keyspace=' + ${keyspace}}"
+          		   type="submit" >
+          		  	<span th:if="${cbean.currentKeySpace ne keyspace}" 
+          		  	      th:text="${keyspace}" 
+          		  		  style="color:white;width:120px;margin-bottom:10px"  
+          		  		  class="btn btn-inverse" /></span>
+          		    <span th:if="${cbean.currentKeySpace eq keyspace}"
+          		          th:text="${keyspace}" 
+          		  		  style="color:white;width:120px;margin-bottom:10px"  
+          		  		  class="btn btn-primary" >
+          		    </span>
+	  			</a>
+          		 -->
+          		 
+          		<div th:if="${cbean.currentKeySpace != null}">
+	          		<br/><span style="font-weight:bold;color:#687684"> <i class="icon-list-alt"></i> Pick a table </span>
+	          		<a th:each="table : ${cbean.tableNames}" 
+	          		   th:href="@{'/cassandra?keyspace=' + ${cbean.currentKeySpace} + '&table=' + ${table}}"
+	          		   type="submit">
+          			  <span th:if="${cbean.currentTableName ne table}" 
+          		  	      th:text="${table}" 
+          		  		  style="color:black;width:120px;margin-bottom:10px"  
+          		  		  class="btn" /></span>
+          		      <span th:if="${cbean.currentTableName eq table}" 
+          		  	      th:text="${table}" 
+          		  		  style="color:white;width:120px;margin-bottom:10px"  
+          		  		  class="btn btn-warning" /></span>
+	  				</a>
+			 	</div>
+			 	
+          	</div>
+          	
+          </div>
+          </div>
+          
+          <div class="span10">
+          
+          <div class="widget">
+            <div class="widget-header">
+              <i class="icon-play-circle"></i>
+              <h3><span >Enter your query</span></h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+            
+             <div th:if="${cbean.currentKeySpace == null}" >
+               <p style="color:#000088">Please select one <b>Keyspace</b> in menu on the left.</p>
+             </div>
+             
+            <div th:if="${cbean.currentKeySpace != null AND cbean.currentTableName == null }">
+               <p style="color:#000088">Please select one <b>Table</b> in menu on the left for keyspace 
+               	<span style="font-weight:bold;color:orange" th:text="${cbean.currentKeySpace}"></span>
+               </p>
+             </div>
+            
+  <div class="tab-pane" id="formcontrols">
+   <form id="query-cql" class="form-horizontal"th:action="@{cassandra}" action=""   method="POST" >
+   <input type="hidden" name="keyspace" th:value="${cbean.currentKeySpace}" />
+   <input type="hidden" name="table" th:value="${cbean.currentTableName}" />
+   
+   <div th:if="${cbean.currentKeySpace != null AND cbean.currentTableName != null }">
+   
+		<textarea id="query" rows="2" cols="30" name="query" th:inline="text">SELECT [[${cbean.cqlQuery}]]
+FROM [[${cbean.currentKeySpace}]].[[${cbean.currentTableName}]]
+LIMIT 50;</textarea>
+		<br/>
+		<button class="btn btn-primary" type="submit" style="color:white;height:45px">
+          <i class="icon-play"></i>&nbsp;&nbsp;Execute
+	  	</button>
+	  
+	</div>
+  </form>
+  </div>
+ 
+  
+  <div th:if="${cbean.result != null}" style="width:100%;overflow:auto">
+  
+   <table id="resultTable" name="resultTable" class="table table-striped table-bordered" 
+   		  style="margin-top:10px">
+     <thead>
+      <tr>
+        <th th:each="column : ${cbean.result.columns}"><span th:text="${column.key}">keyvalue</span></th>
+        <th style="width:20px">&nbsp;</th>
+        <th style="width:20px">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr th:each="currentLine : ${cbean.result.rows}">
+	  <td th:each="currentValue : ${currentLine}">
+	    <span th:text="${currentValue.value.uiValue}">VALUE</span>
+	  </td>
+	 <td>
+	  <a data-toggle="modal" href="#modalComing" class="btn btn-success"><i class="icon-pencil"></i></a></td>
+	  <td><a class="btn btn-danger"><i data-toggle="modal" href="#modalComing" class="icon-trash"></i></a></td>
+	  </tr>
+	</tbody>
+    </table>
+  </div>
+   </div> 
+  </div><!-- ROW -->
+          
+	 </div>
+	</div>
+   </div>
+  </div>
+ </div>
+</div>
+
+<script>
+window.onload = function() {
+  window.editor = CodeMirror.fromTextArea(document.getElementById('query'), {
+    mode: 'text/x-cassandra',
+    lineNumbers: true,
+    smartIndent: true,
+    extraKeys: {"Ctrl-Space": "autocomplete"}
+  });
+};
+</script>
+
+
+<div th:include="modals :: modal-coming"></div>
+
+   
+</body>
+</html>

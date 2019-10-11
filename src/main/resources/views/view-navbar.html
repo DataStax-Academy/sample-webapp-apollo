@@ -1,0 +1,124 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="navbar">
+ <div class="navbar-inner">
+  <div class="container">
+
+   <a class="brand" href="/" style="">
+    <img src="" th:src="@{/img/logo-header.png}" height="45px" style="height:45px"/>
+    &nbsp; &nbsp; &nbsp;
+    <!-- <span th:text="#{navbar.title}" style="color:orange;margin-top:15px"> YASA </span> -->
+    APOLLO PLAYGROUND
+   </a>
+        
+   <div class="nav-collapse"  style="margin-top:15px">
+   	<ul class="nav pull-right">
+	 <li class="dropdown">
+	 </li>
+	</ul>
+   </div>
+  </div>
+ </div>
+</div>
+
+<div th:fragment="subnavbar">
+ <div class="subnavbar-inner">
+  <div class="container">
+   <ul class="mainnav">
+    
+    <li class="active2">
+     <a href="/" >
+      <i class="icon-home"></i>
+       <span th:text="#{navbar.main.home}" >Home</span>
+     </a>
+    </li>
+    <li>
+     <a href="" th:href="@{cassandra}" >
+      <i class="icon-list-alt"></i> 
+      <span th:text="#{navbar.main.cassandra}" >Cassandra</span>
+     </a>
+    </li>
+       <li>
+          <a data-toggle="modal" href="#modalAbout">
+           <i class="icon-info"></i> 
+           <span th:text="#{navbar.main.about}" >About</span>
+           </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div th:fragment="subnavbar-cassandra">
+ <div class="subnavbar-inner">
+  <div class="container">
+   <ul class="mainnav">
+    
+    <li >
+     <a href="/" >
+      <i class="icon-home"></i>
+       <span th:text="#{navbar.main.home}" >Home</span>
+     </a>
+    </li>
+    <li class="active2">
+     <a href="" th:href="@{cassandra}" >
+      <i class="icon-list-alt"></i> 
+      <span th:text="#{navbar.main.cassandra}" >Cassandra</span>
+     </a>
+    </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div th:fragment="subnavbar-graph">
+ <div class="subnavbar-inner">
+  <div class="container">
+   <ul class="mainnav">
+    
+    <li >
+     <a href="/" >
+      <i class="icon-home"></i>
+       <span th:text="#{navbar.main.home}" >Home</span>
+     </a>
+    </li>
+    <li class="active2">
+     <a href="" th:href="@{graph}" >
+      <i class="icon-code-fork"></i> 
+      <span th:text="#{navbar.main.graph}" >Graph</span>
+     </a>
+    </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div th:fragment="subnavbar-c360">
+ <div class="subnavbar-inner">
+  <div class="container">
+   <ul class="mainnav">
+    
+    <li >
+     <a href="/" >
+      <i class="icon-home"></i>
+       <span th:text="#{navbar.main.home}" >Home</span>
+     </a>
+    </li>
+    
+    <li class="active2">
+     <a href="" th:href="@{c360}" >
+      <i class="icon-user"></i> 
+      <span th:text="#{navbar.main.c360}" >Customer360</span>
+     </a>
+    </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

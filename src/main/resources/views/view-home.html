@@ -1,0 +1,147 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:include="header :: head"></head>
+<body>
+ <div class="navbar navbar-fixed-top" th:include="navbar :: navbar"></div>
+ <div class="subnavbar" th:include="navbar :: subnavbar"></div>
+  <div id="wrapper" class="container">
+    <div id="content" class="clearfix">
+	  <div class="main-inner" style="margin-top: 60px">
+	   <div class="container">
+        <div class="row">
+		 <div class="span6">
+		 
+		  <div class="widget widget-nopad">
+		   <div class="widget-header">
+			<i class="icon-dashboard"></i>
+			<h3>
+			 <span th:text="#{home.cluster.status}"></span>
+			 <span style="color:#0890D0" th:text="${homebean.clusterName}"></span>  
+			</h3>
+		   </div>
+           
+           <div class="widget-content"  style="padding:10px">
+		    
+   <!-- Information server per server -->
+   <div th:each="node : ${homebean.dseNodeList}" >
+     <table class="table table-striped table-bordered" style="margin-5px;">
+                <thead>
+                  <tr>
+                    <th colspan="2" style="background-color:white;font-weight: bold; font-size: 14px;color:black"> 
+                     <i class="icon-laptop"></i> Node  : 
+                     <span style="color:#0890D0" th:text="${node.hostname}"></span>
+                     (<span style="color:#0890D0;font-style:italic" th:text="${node.hostAdress}"></span>) </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td> Status</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${node.state}"></span></td>
+                  </tr>
+                    <tr>
+                    <td> Dse Version</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${node.dseVersion}"></span></td>
+                   </tr>
+                    <tr>
+                    <td> Workloads</td>
+                    <td> 
+                        <span th:each="workload : ${node.workloads}" >
+   	 						<span th:text="${workload}" style="background-color:#0890D0;margin-left:10px;color:white;padding:5px;font-weight:bold"></span>
+   	 					</span>
+   	 				</td>
+                   </tr>
+                </tbody>
+       </table>
+   	</div> <!-- div node -->
+		
+      </div> <!-- div widget-content -->
+	 </div> <!-- div widget -->
+	</div> 	<!-- span6 -->	
+
+	<div class="span6">
+	 <div class="widget">
+	  <div class="widget-header">
+	   <i class="icon-wrench"></i>
+	   <h3><span th:text="#{home.cluster.operation}"></span></h3>
+	  </div>
+	  <div class="widget-content" style="padding:10px">
+
+   <!-- Information server per server -->
+   <table class="table table-striped table-bordered" style="margin-5px;">
+                <tbody>
+                  <tr>
+                    <td> Driver Version</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.dseDriverVersion}"></span></td>
+                   </tr>
+                    <tr>
+                    <td> Load Balancing</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.loadBalancingPolicy}"></span></td>
+                   </tr>
+                   <tr>
+                    <td> Reconnection Balancing</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.reconnectionPolicy}"></span></td>
+                   </tr>
+                   <tr>
+                    <td> Rertry Balancing</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.retryPolicy}"></span></td>
+                   </tr>
+                   <tr>
+                    <td> Consistency Level</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.queryConsistencyLevel}"></span></td>
+                   </tr>
+                   <tr>
+                    <td>  Fetch Size</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.queryFetchSize}"></span></td>
+                   </tr>
+                   <tr>
+                    <td> Default Idempotence</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.queryDefaultIdempotence}"></span></td>
+                   </tr>
+                   <tr>
+                    <td> Refresh Node Interval (millis)</td>
+                    <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.queryRefreshNodeInterval}"></span>
+                    (maxPending=<span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.queryRefreshNodeMaxPendingRequest}"></span>
+                    )
+                    </td>
+                   </tr>
+                   <tr>
+                    <td> Refresh Node List Interval (millis)</td>
+                     <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.queryRefreshNodeListInterval}"></span>
+                    (maxPending=<span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.queryRefreshNodeListMaxPendingRequest}"></span>
+                    )
+                    </td>
+                   </tr>
+                   <tr>
+                    <td> Refresh Schema Interval (millis) </td>
+                     <td> <span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.queryRefreshSchemaInterval}"></span>
+                    (maxPending=<span style="font-weight: bold; font-size: 14px; color: #0890D0" th:text="${homebean.queryRefreshSchemaPendingRequest}"></span>
+                    )
+                    </td>
+                   </tr>
+                </tbody>
+     		</table>
+   												</div>
+											
+											
+										</div>
+										<!-- /widget-content -->
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<div th:include="modals :: modal-about"></div>
+
+</body>
+</html>

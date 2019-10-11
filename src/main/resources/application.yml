@@ -1,0 +1,18 @@
+# ----------------------------------------------------------
+# Spring Boot extra Config
+# ----------------------------------------------------------
+spring:
+  messages:
+    basename: i18n/messages
+ 
+# ----------------------------------------------------------
+# Connectivity to Constellation Apollo
+# ----------------------------------------------------------
+constellation:
+  apollo:
+    username: cedrick
+    password: cedrick
+    keyspace: demo_apollo
+    zipfile: src/main/resources/connection-apollo-demo.zip
+
+        

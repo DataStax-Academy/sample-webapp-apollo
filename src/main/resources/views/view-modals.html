@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+ <div th:fragment="modal-about">
+  <div class="modal hide fade" 
+       id="modalAbout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header" style="background-color:#0890D0;background:#0890D0;">   
+      <button class="close" data-dismiss="modal" style="background:white;color:#0890D0">x</button>   
+      <h4 id="myModalLabel"><i class="icon-info"></i>&nbsp;
+      About this Application
+      </h4>
+    </div>
+    <div class="modal-body" style="color:">
+      <p>This application is bringing to you by the DataStax Evangelist Team</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-info" data-dismiss="modal">
+        &nbsp;OK
+       </button>
+    </div>
+  </div>
+</div>
+
+
+
+ <div th:fragment="modal-coming">
+  <div class="modal hide fade" 
+       id="modalComing" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header" style="background-color:#0890D0;background:#0890D0;">   
+      <button class="close" data-dismiss="modal" style="background:white;color:#0890D0">x</button>   
+      <h4 id="myModalLabel"><i class="icon-info"></i>&nbsp;
+        Coming Soon
+      </h4>
+    </div>
+    <div class="modal-body" style="color:">
+      <p>This feature has not been developed yet.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-info" data-dismiss="modal">
+        &nbsp;OK
+       </button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
