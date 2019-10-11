@@ -77,7 +77,8 @@ Et VOILA !
 
 
 
-<img src="http://https://github.com/DataStax-Academy/sample-webapp-apollo/images/01.png" /> 
+<img src="https://github.com/DataStax-Academy/sample-webapp-apollo/blob/master/images/01.png" /> 
+<img src="https://github.com/DataStax-Academy/sample-webapp-apollo/blob/master/images/02.png" /> 
 
 
 
