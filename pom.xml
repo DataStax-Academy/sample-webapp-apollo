@@ -26,7 +26,7 @@
 		  <thymeleaf-layout-dialect.version>2.2.1</thymeleaf-layout-dialect.version>
 
 		<!-- Spring -->
-		<spring.version>5.0.7.RELEASE</spring.version>
+		<spring.version>5.2.7.RELEASE</spring.version>
 		<spring-boot.version>2.0.1.RELEASE</spring-boot.version>
 
 		<!-- Junit5 -->
